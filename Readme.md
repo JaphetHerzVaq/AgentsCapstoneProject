@@ -47,6 +47,20 @@ You should see the following packages listed:
 - load-dotenv
 - vertexai
 
+### Step 5: Configure Google Cloud Credentials
+
+This project uses Vertex AI, which requires Google Cloud authentication.
+
+1. **Install the Google Cloud SDK (gcloud):**
+   Follow the instructions here: https://cloud.google.com/sdk/docs/install
+
+2. **Authenticate:**
+   Run the following command and follow the browser prompts:
+   ```bash
+   gcloud auth application-default login
+   ```
+   This sets up the Application Default Credentials (ADC) needed by the Python client libraries.
+
 ## Deactivating the Virtual Environment
 
 When you're done working on the project, deactivate the virtual environment:
