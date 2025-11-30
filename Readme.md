@@ -33,7 +33,7 @@ This project demonstrates how agentic AI can be a force for good in education by
 
 #### Media Gallery
 
-**YouTube Video URL**: *[https://youtu.be/aze-pVmKFP4]*
+**YouTube Video URL**: *[Intelligent Thesis Reviewer: A Multi-Agent System for Automated Academic Evaluation - https://youtu.be/aze-pVmKFP4](https://youtu.be/aze-pVmKFP4)*
 
 ---
 
