@@ -21,6 +21,16 @@ This project has been developed for the **Agents Intensive - Capstone Project**,
 
 Agents that tackle problems in education, healthcare, or sustainability.
 
+**Justification**: This project falls under the **Agents for Good** track because it directly addresses critical challenges in **education**. The system tackles the significant problem of time-consuming academic evaluations that burden professors and delay student feedback. By automating thesis document reviews through intelligent multi-agent systems, we:
+
+- **Improve Educational Access**: Enable professors to review more student submissions efficiently, ensuring all students receive timely, comprehensive feedback regardless of class size or professor availability
+- **Enhance Learning Outcomes**: Provide students with faster, detailed feedback cycles that enable iterative improvement and deeper understanding of rubric expectations
+- **Support Educational Equity**: Ensure consistent, unbiased evaluation standards across all submissions, reducing variability in grading and ensuring fair assessment
+- **Empower Educators**: Free professors from repetitive evaluation tasks, allowing them to focus on high-value pedagogical activities like curriculum development, research, and personalized student mentorship
+- **Scale Educational Resources**: Enable institutions to handle growing enrollment without proportional increases in faculty workload, making quality education more accessible
+
+This project demonstrates how agentic AI can be a force for good in education by reducing barriers to quality feedback, supporting both educators and learners, and making academic evaluation more efficient and equitable.
+
 #### Media Gallery
 
 **YouTube Video URL**: *[To be added]*
