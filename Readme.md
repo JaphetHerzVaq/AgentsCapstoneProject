@@ -66,7 +66,6 @@ This project has been collaboratively developed by:
 - ✅ **Logging**: Comprehensive logging via Google ADK LoggingPlugin
 - ✅ **Tracing**: Full execution trace of agent workflow and state transitions
 
-
 ## Category 1: The Pitch (Problem, Solution, Value)
 
 ### Problem: 
@@ -508,6 +507,157 @@ The system follows Clean Architecture's layered approach:
 - **Testability**: Each layer can be unit tested independently with mocks
 - **Consistency**: SOLID principles enforce consistent patterns across the codebase
 - **Code Reusability**: Well-designed components can be reused in other agentic projects
+
+
+---
+
+## Input and Output Description
+
+### Input Description
+
+The system requires two primary inputs to perform automated thesis document review:
+
+#### 1. Student Document (`document.txt`)
+- **Format**: Plain text file (`.txt`) encoded in UTF-8
+- **Location**: `./resources/input/document.txt`
+- **Content**: Complete student thesis document containing:
+  - Introduction and research context
+  - Methodology and data collection
+  - Analysis and mathematical work
+  - Personal engagement and reflection
+  - Conclusions and findings
+- **Purpose**: The document serves as the primary content to be evaluated against rubric criteria
+- **Requirements**: 
+  - Should be a complete, formatted thesis document
+  - Must be readable text (not scanned images)
+  - Can contain mathematical notation, tables, and structured content
+  - Typical length: 10-50 pages when converted to text
+
+#### 2. Rubric Document (`rubrics.pdf`)
+- **Format**: PDF file (`.pdf`)
+- **Location**: `./resources/input/rubrics.pdf`
+- **Content**: Comprehensive rubric document defining evaluation criteria:
+  - **Criterion A**: Presentation standards and formatting requirements
+  - **Criterion B**: Mathematical Communication clarity and rigor
+  - **Criterion C**: Personal Engagement and reflection depth
+  - **Criterion D**: Reflection quality and critical thinking
+  - **Criterion E**: Use of Mathematics and technical accuracy
+- **Purpose**: Provides the evaluation standards that agents use to assess student work
+- **Processing**: 
+  - Ingested into Vertex AI RAG corpus during system initialization
+  - Converted to vector embeddings for semantic search
+  - Made accessible to all reviewer agents via RAG retrieval tool
+- **Requirements**:
+  - Should be a well-structured PDF document
+  - Must clearly define all evaluation criteria
+  - Should include scoring rubrics and standards for each criterion
+
+#### 3. Configuration and Environment
+- **Google Cloud Project ID**: `agents-capstone-project`
+- **Google API Key**: Required for Vertex AI and Gemini model access (stored in `.env` file)
+- **Google Cloud Authentication**: Application Default Credentials (ADC) via `gcloud auth application-default login`
+
+#### Input Processing Flow
+1. **Document Loading**: Student document is read as plain text and passed to the agent system
+2. **Rubric Ingestion**: Rubric PDF is uploaded to Vertex AI RAG corpus and indexed for semantic search
+3. **Task Prompt Construction**: System combines student document with task instructions to create evaluation prompt
+4. **Agent Distribution**: All reviewer agents receive the document and access to RAG tool for rubric retrieval
+
+---
+
+### Output Description
+
+The system generates comprehensive feedback reports containing detailed evaluation results for each rubric criterion and an aggregated summary.
+
+#### 1. Individual Criterion Feedback
+
+Each of the five reviewer agents produces structured feedback for its assigned criterion:
+
+**Output Keys and Content**:
+- `presentation_feedback` (Criterion A - Presentation Reviewer Agent)
+- `mathematical_communication_feedback` (Criterion B - Math Communication Reviewer Agent)
+- `personal_engagement_feedback` (Criterion C - Personal Engagement Reviewer Agent)
+- `reflection_feedback` (Criterion D - Reflection Reviewer Agent)
+- `use_of_Mathematics_feedback` (Criterion E - Use of Mathematics Reviewer Agent)
+
+**Each Criterion Feedback Contains**:
+- **Numerical Score**: Score based on rubric standards with justification
+- **Detailed Evaluation**: Comprehensive analysis of how the document meets or fails to meet the criterion
+- **Strengths Identified**: Specific positive aspects of the student's work
+- **Areas for Improvement**: Weaknesses or gaps in the student's work
+- **Three Actionable Recommendations**: Specific, implementable suggestions for improvement
+
+#### 2. Aggregated Final Feedback
+
+The aggregator agent synthesizes all individual feedback into a cohesive report:
+
+**Output Key**: `final_feedback`
+
+**Content Includes**:
+- **Executive Summary**: High-level overview of the evaluation (approximately 200 words)
+- **Common Themes**: Recurring patterns identified across multiple criteria
+- **Cross-Criterion Connections**: Relationships and dependencies between different evaluation aspects
+- **Key Takeaways**: Most important insights from the comprehensive review
+- **Overall Assessment**: Holistic view of the document's strengths and weaknesses
+
+#### 3. Consolidated Feedback Report
+
+**File Format**: Markdown (`.md`)
+- **Location**: `./resources/output/COMPLETE_FEEDBACK_REPORT.md`
+- **Structure**:
+  ```markdown
+  Consolidated feedback report
+
+  ---
+  ## I. Detailed feedback per criteria
+  
+  [Individual criterion feedback sections]
+  
+  [Aggregated final summary]
+  ```
+
+**Report Contents**:
+1. **Header**: Report title and metadata
+2. **Section I - Detailed Feedback per Criteria**: 
+   - Individual feedback from each of the five reviewer agents
+   - Organized by criterion (A, B, C, D, E)
+   - Includes scores, evaluations, and recommendations
+3. **Final Summary**: Aggregated insights and overall assessment
+
+#### 4. Console Output
+
+During execution, the system provides real-time feedback:
+
+- **Initialization Messages**: Agent creation confirmations
+- **Workflow Status**: Progress updates during execution
+- **Individual Feedback Display**: Each agent's output displayed in console
+- **Final Report Location**: Path to saved consolidated report file
+- **Execution Logs**: Detailed logging via LoggingPlugin for debugging and monitoring
+
+#### Output Characteristics
+
+**Comprehensiveness**:
+- Covers all five rubric criteria systematically
+- Provides both detailed and summary perspectives
+- Includes quantitative scores and qualitative feedback
+
+**Actionability**:
+- 15 total actionable recommendations (3 per criterion)
+- Specific, implementable suggestions
+- Directly addresses rubric requirements
+
+**Format**:
+- Structured markdown format for easy reading
+- Can be easily converted to PDF or other formats
+- Suitable for direct delivery to students or professors
+
+**Quality Assurance**:
+- All feedback grounded in actual rubric criteria via RAG retrieval
+- Consistent evaluation standards across all criteria
+- Cross-validated through aggregator agent synthesis
+
+---
+
 
 ## Setup and Installation
 
