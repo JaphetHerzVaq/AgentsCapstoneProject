@@ -59,36 +59,73 @@ async def run_feedback_system():
         None (writes output to file)
     """
     # Initialize the agent runner with logging for debugging and monitoring
+    # Initialize the agent runner with logging for debugging and monitoring
+    # app_name="agents" is required to match the default app name expected by the agents library
     runner = InMemoryRunner(
         agent=root_agent,
+        app_name="agents",
         plugins=[
             LoggingPlugin()  # Enables detailed logging of agent execution
         ],  
     )
     
-    # Load the student document that will be reviewed
-    try:
-        with open(ProjectConfig.input_sample_document_to_review, 'r', encoding='utf-8') as f:
-            TEXT_FOR_REVIEW = f.read()
-    except FileNotFoundError:
-        # Fallback message if document file is not found
-        TEXT_FOR_REVIEW = "Error: Input document not found. Please simulate the review using the prompt description."
-        
+    # Create a session for the interaction
+    session_id = "feedback_session"
+    user_id = "user"
+    await runner.session_service.create_session(
+        session_id=session_id,
+        user_id=user_id,
+        app_name="agents"
+    )
+    
     # Construct the task prompt that will be sent to the agent system
     # This prompt instructs the system to generate feedback based on all rubric criteria
-    TASK_PROMPT = f"""
-    {TEXT_FOR_REVIEW}
-
-    ---
+    TASK_INSTRUCTION = """
     **TASK:** Generate the final feedback report based on Criteria A, B, C, D, and E, reviewing the document provided above.
     """
     
+    try:
+        file_path = ProjectConfig.input_sample_document_to_review
+        file_extension = os.path.splitext(file_path)[1].lower()
+        
+        parts = []
+        
+        if file_extension == '.pdf':
+            with open(file_path, "rb") as f:
+                pdf_data = f.read()
+            pdf_part = types.Part.from_bytes(data=pdf_data, mime_type="application/pdf")
+            parts.append(pdf_part)
+            print(f"Loaded PDF file: {file_path}")
+        else:
+            # Default to text file reading
+            with open(file_path, 'r', encoding='utf-8') as f:
+                text_content = f.read()
+            parts.append(types.Part(text=text_content))
+            print(f"Loaded text file: {file_path}")
+            
+        parts.append(types.Part(text=TASK_INSTRUCTION))
+        
+        input_content = types.Content(parts=parts, role="user")
+        
+    except FileNotFoundError:
+        print("Error: Input document not found.")
+        return
+    except Exception as e:
+        print(f"Error reading file: {str(e)}")
+        return
+    
     print(f"\n--- Starting Workflow: {root_agent.name} ---")
-    print(f"Input task: {TASK_PROMPT[:100]}...") 
 
     # Execute the agent workflow and capture all response events
-    response = await runner.run_debug(TASK_PROMPT)
-    print("******RESPONSE*******\n", response, "******RESPONSE*******\n")
+    response = []
+    async for event in runner.run_async(
+        user_id=user_id,
+        session_id=session_id,
+        new_message=input_content
+    ):
+        response.append(event)
+        
+    print("******RESPONSE RECEIVED*******\n")
 
     def get_output_key_response_value(output_key, response):
         """
