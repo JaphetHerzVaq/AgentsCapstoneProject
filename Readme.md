@@ -33,7 +33,7 @@ This project demonstrates how agentic AI can be a force for good in education by
 
 #### Media Gallery
 
-**YouTube Video URL**: *[To be added]*
+**YouTube Video URL**: *[https://youtu.be/aze-pVmKFP4]*
 
 ---
 
