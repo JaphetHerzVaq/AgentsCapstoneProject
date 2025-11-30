@@ -1,4 +1,4 @@
-# AgentsCapstoneProject
+# Agentic Project: **Intelligent Thesis Reviewer: A Multi-Agent System for Automated Academic Evaluation**
 
 ## Introduction
 
