@@ -21,7 +21,7 @@ from google import genai
 from vertexai import rag
 from google.adk.tools.retrieval.vertex_ai_rag_retrieval import VertexAiRagRetrieval
 
-from t_lib.t_project.t_config import ProjectConfig
+from t_ai_paper_reviewer_lib.t_project.t_config import ProjectConfig
 
 class RetrievalRagTool:
     """

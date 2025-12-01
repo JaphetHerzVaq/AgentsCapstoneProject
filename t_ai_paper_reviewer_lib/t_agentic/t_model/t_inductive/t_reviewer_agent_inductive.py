@@ -12,7 +12,7 @@ composing them into a higher-level system, building from specific to general.
 from google.adk.agents import Agent, ParallelAgent
 from google.adk.models.google_llm import Gemini
 from google.genai import types
-from t_lib.t_agentic_lib.t_base_agent_model.t_reviewer_agent_base import ReviewerAgent
+from t_ai_paper_reviewer_lib.t_agentic.t_model.t_base import ReviewerAgent
 import os
 
 class InductiveReviewerAgents:

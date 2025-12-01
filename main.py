@@ -21,9 +21,9 @@ from dotenv import load_dotenv
 from google.adk.runners import InMemoryRunner
 from google.genai import types
 from google.adk.plugins.logging_plugin import LoggingPlugin
-from t_lib.t_agentic_lib.t_agent_controller import ReviewerAgentController
-from t_lib.t_agentic_lib.t_inductive_agent_model.t_reviewer_agent_inductive import InductiveReviewerAgents
-from t_lib.t_project.t_config import ProjectConfig
+from t_ai_paper_reviewer_lib.t_agentic.t_controller import ReviewerAgentController
+from t_ai_paper_reviewer_lib.t_agentic.t_model.t_inductive import InductiveReviewerAgents
+from t_ai_paper_reviewer_lib.t_project.t_config import ProjectConfig
 
 # Configure logging level for debugging and monitoring agent execution
 logging.basicConfig(level=logging.DEBUG)

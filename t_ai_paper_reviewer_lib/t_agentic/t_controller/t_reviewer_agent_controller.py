@@ -11,8 +11,8 @@ composition logic, making the system easier to understand and modify.
 """
 
 from google.adk.agents import SequentialAgent
-from t_lib.t_agentic_lib.t_inductive_agent_model.t_reviewer_agent_inductive import InductiveReviewerAgents
-from t_lib.t_agentic_lib.t_agent_rag.t_retrieval_rag_tool import RetrievalRagTool
+from t_ai_paper_reviewer_lib.t_agentic.t_model.t_inductive import InductiveReviewerAgents
+from t_ai_paper_reviewer_lib.t_agentic.t_model.t_infra.t_rag.t_retrieval_rag_tool import RetrievalRagTool
 
 class ReviewerAgentController:
     """
