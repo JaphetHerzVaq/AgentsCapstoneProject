@@ -166,6 +166,106 @@ The agentic feedback system delivers substantial value through time savings, qua
 - **Innovation Enablement**: Automated routine tasks enable focus on educational innovation and improvement
 - **Data Collection**: System generates valuable data about common student challenges and evaluation patterns 
 
+## Project Structure
+
+### Folder Organization
+
+The project follows a clean, modular structure that separates concerns and enables maintainability:
+
+```
+AgentsCapstoneProject/
+├── main.py                          # Entry point and orchestration
+├── requirements.txt                 # Python dependencies
+├── .env                             # Environment variables (not in repo)
+│
+├── t_ai_paper_reviewer_lib/         # Main library package
+│   ├── __init__.py
+│   │
+│   ├── t_agentic/                   # Agent-related components
+│   │   ├── __init__.py
+│   │   │
+│   │   ├── t_controller/            # Controller layer
+│   │   │   ├── __init__.py
+│   │   │   └── t_reviewer_agent_controller.py
+│   │   │
+│   │   └── t_model/                 # Agent models
+│   │       ├── __init__.py
+│   │       │
+│   │       ├── t_base/               # Base agent classes
+│   │       │   ├── __init__.py
+│   │       │   └── t_reviewer_agent_base.py
+│   │       │
+│   │       ├── t_inductive/         # Inductive agent implementations
+│   │       │   ├── __init__.py
+│   │       │   └── t_reviewer_agent_inductive.py
+│   │       │
+│   │       └── t_infra/             # Infrastructure components
+│   │           ├── __init__.py
+│   │           │
+│   │           └── t_rag/           # RAG (Retrieval-Augmented Generation)
+│   │               ├── __init__.py
+│   │               └── t_retrieval_rag_tool.py
+│   │
+│   ├── t_project/                   # Project configuration
+│   │   ├── __init__.py
+│   │   └── t_config.py              # Centralized configuration
+│   │
+│   └── t_util/                      # Utility functions
+│       └── __init__.py
+│
+└── resources/                       # Input and output resources
+    ├── input/                       # Input files
+    │   ├── papers_to_review/        # Student documents to evaluate
+    │   │   ├── document_cancer.txt
+    │   │   ├── document_creative_composition.pdf
+    │   │   └── document_safe_beliefs.pdf
+    │   │
+    │   └── rubric_specification/    # Rubric documents
+    │       └── rubrics.pdf
+    │
+    └── output/                      # Generated feedback reports
+        ├── COMPLETE_FEEDBACK_REPORT.md
+        ├── COMPLETE_FEEDBACK_REPORT_document_cancer_txt.md
+        ├── COMPLETE_FEEDBACK_REPORT_document_creative_composition_pdf.md
+        └── COMPLETE_FEEDBACK_REPORT_document_safe_beliefs_pdf.md
+```
+
+### Directory Descriptions
+
+#### `t_ai_paper_reviewer_lib/`
+The main library package containing all core functionality:
+- **`t_agentic/`**: Contains all agent-related components following Clean Architecture principles
+  - **`t_controller/`**: Controller layer that orchestrates agent workflows
+  - **`t_model/`**: Agent model definitions and implementations
+    - **`t_base/`**: Base classes defining common agent structure
+    - **`t_inductive/`**: Concrete agent implementations for rubric evaluation
+    - **`t_infra/`**: Infrastructure components like RAG tools
+- **`t_project/`**: Project-wide configuration and settings
+- **`t_util/`**: Shared utility functions and helpers
+
+#### `resources/`
+Contains all input documents and generated output files:
+- **`input/papers_to_review/`**: Student thesis documents in various formats (PDF, TXT)
+- **`input/rubric_specification/`**: Rubric PDF that defines evaluation criteria
+- **`output/`**: Generated feedback reports in Markdown format
+
+### Sample Files
+
+#### Input Sample Files
+The `resources/input/papers_to_review/` directory contains example student documents:
+- **`document_cancer.txt`**: Text format thesis document about cancer research
+- **`document_creative_composition.pdf`**: PDF format thesis on creative composition
+- **`document_safe_beliefs.pdf`**: PDF format thesis on safe beliefs
+
+#### Output Sample Files
+The `resources/output/` directory contains generated feedback reports:
+- **`COMPLETE_FEEDBACK_REPORT.md`**: Generic feedback report template
+- **`COMPLETE_FEEDBACK_REPORT_document_cancer_txt.md`**: Feedback for the cancer document
+- **`COMPLETE_FEEDBACK_REPORT_document_creative_composition_pdf.md`**: Feedback for creative composition document
+- **`COMPLETE_FEEDBACK_REPORT_document_safe_beliefs_pdf.md`**: Feedback for safe beliefs document
+
+---
+
 ## Architecture
 
 ### System Overview
@@ -521,7 +621,11 @@ The system requires two primary inputs to perform automated thesis document revi
 - **Supported Formats**: 
   - **PDF files** (`.pdf`): Recommended format for comprehensive analysis
   - **Text files** (`.txt`): Plain text files encoded in UTF-8
-- **Location**: `./resources/input/` (configured via `ProjectConfig.input_sample_document_to_review`)
+- **Location**: `./resources/input/papers_to_review/` (configured via `ProjectConfig.input_sample_document_to_review`)
+- **Sample Files**:
+  - `document_cancer.txt` - Example text format thesis
+  - `document_creative_composition.pdf` - Example PDF thesis
+  - `document_safe_beliefs.pdf` - Example PDF thesis
 - **Content**: Complete student thesis document containing:
   - Introduction and research context
   - Methodology and data collection
@@ -544,7 +648,7 @@ The system requires two primary inputs to perform automated thesis document revi
 
 #### 2. Rubric Document (`rubrics.pdf`)
 - **Format**: PDF file (`.pdf`)
-- **Location**: `./resources/input/rubrics.pdf`
+- **Location**: `./resources/input/rubric_specification/rubrics.pdf`
 - **Content**: Comprehensive rubric document defining evaluation criteria:
   - **Criterion A**: Presentation standards and formatting requirements
   - **Criterion B**: Mathematical Communication clarity and rigor
@@ -615,7 +719,14 @@ The aggregator agent synthesizes all individual feedback into a cohesive report:
 #### 3. Consolidated Feedback Report
 
 **File Format**: Markdown (`.md`)
-- **Location**: `./resources/output/COMPLETE_FEEDBACK_REPORT.md`
+- **Location**: `./resources/output/`
+- **Naming Convention**: 
+  - `COMPLETE_FEEDBACK_REPORT.md` - Generic/default report
+  - `COMPLETE_FEEDBACK_REPORT_{document_name}.md` - Document-specific reports
+- **Sample Output Files**:
+  - `COMPLETE_FEEDBACK_REPORT_document_cancer_txt.md`
+  - `COMPLETE_FEEDBACK_REPORT_document_creative_composition_pdf.md`
+  - `COMPLETE_FEEDBACK_REPORT_document_safe_beliefs_pdf.md`
 - **Structure**:
   ```markdown
   Consolidated feedback report
