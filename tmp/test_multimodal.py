@@ -35,7 +35,7 @@ async def test_multimodal_async():
     print(f"Created session {session_id}")
 
     # Load PDF
-    pdf_path = "../resources/input/document1.pdf"
+    pdf_path = "../resources/input/document_safe_beliefs.pdf"
     with open(pdf_path, "rb") as f:
         pdf_data = f.read()
 
