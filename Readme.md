@@ -330,17 +330,17 @@ The system follows a hierarchical agent architecture that processes student docu
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    main.py (Orchestration)                  │
-│  - Document Loading                                          │
-│  - Runner Initialization                                     │
-│  - Workflow Execution                                        │
-│  - Result Extraction & Consolidation                         │
+│  - Document Loading                                         │
+│  - Runner Initialization                                    │
+│  - Workflow Execution                                       │
+│  - Result Extraction & Consolidation                        │
 └───────────────────────┬─────────────────────────────────────┘
                         │
                         ▼
 ┌─────────────────────────────────────────────────────────────┐
 │          ReviewerAgentController (Controller)               │
-│  - Root Agent Composition                                    │
-│  - Sequential Workflow Definition                            │
+│  - Root Agent Composition                                   │
+│  - Sequential Workflow Definition                           │
 └───────────────────────┬─────────────────────────────────────┘
                         │
         ┌───────────────┴───────────────┐
@@ -359,15 +359,15 @@ The system follows a hierarchical agent architecture that processes student docu
         ▼  ▼
 ┌─────────────────────────────────────────────────────────────┐
 │      ParallelAgent (ParallelFeedbackTeamAgent)              │
-│  ┌──────────┬──────────┬──────────┬──────────┬──────────┐  │
-│  │ Agent A  │ Agent B  │ Agent C  │ Agent D  │ Agent E  │  │
-│  │(Reviewer)│(Reviewer)│(Reviewer)│(Reviewer)│(Reviewer)│  │
-│  │          │          │          │          │          │  │
-│  │  [RAG]   │  [RAG]   │  [RAG]   │  [RAG]   │  [RAG]   │  │
-│  └──────────┴──────────┴──────────┴──────────┴──────────┘  │
-│                                                              │
-│  All agents execute in parallel for optimal performance      │
-└──────────────────────────┬───────────────────────────────────┘
+│  ┌──────────┬──────────┬──────────┬──────────┬──────────┐   │
+│  │ Agent A  │ Agent B  │ Agent C  │ Agent D  │ Agent E  │   │
+│  │(Reviewer)│(Reviewer)│(Reviewer)│(Reviewer)│(Reviewer)│   │
+│  │          │          │          │          │          │   │
+│  │  [RAG]   │  [RAG]   │  [RAG]   │  [RAG]   │  [RAG]   │   │
+│  └──────────┴──────────┴──────────┴──────────┴──────────┘   │
+│                                                             │
+│  All agents execute in parallel for optimal performance     │
+└──────────────────────────┬──────────────────────────────────┘
                            │
                            │ (Individual Feedback)
                            ▼
