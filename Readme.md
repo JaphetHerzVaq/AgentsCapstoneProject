@@ -748,26 +748,24 @@ https://cloud.google.com/sdk/docs/install
 
 #### 3. Initialize gcloud and Select Your Project
 
-Run:
+* Run:
 
 gcloud init
 
 
-Choose:
+* Choose:
 
-Your Google account
+- Your Google account
+- The project you created
+- A default region (optional)
 
-The project you created
-
-A default region (optional)
-
-To explicitly set the project:
+* To explicitly set the project:
 
 gcloud config set project YOUR_PROJECT_ID
 
 #### 4. Enable Required Google Cloud APIs
 
-Vertex AI and the RAG backend require several APIs.
+* Vertex AI and the RAG backend require several APIs.
 
 A. Enable APIs automatically via CLI (recommended)
 gcloud services enable \
@@ -784,53 +782,51 @@ b. Click “Enable APIs and Services”.
 
 c. Search for and enable:
 
-Vertex AI API (aiplatform.googleapis.com)
-Cloud Resource Manager API (cloudresourcemanager.googleapis.com)
-Cloud Storage API (storage.googleapis.com)
+* Vertex AI API (aiplatform.googleapis.com)
+* Cloud Resource Manager API (cloudresourcemanager.googleapis.com)
+* Cloud Storage API (storage.googleapis.com)
 
 d. Confirm all appear under Enabled APIs.
 
 #### 5. Authenticate (Application Default Credentials)
 
-Run:
+* Run:
 
 gcloud auth application-default login
 
 
-A browser window will open → sign in → grant access.
-
-Verify:
+*A browser window will open → sign in → grant access. Verify:
 
 gcloud auth list
 gcloud auth application-default print-access-token
 
 #### 6. Match Your Google Cloud Settings with Project Files
-A. t_config.py
+##### A. t_config.py
 
-The main configuration field is:
+* The main configuration field is:
 
 project_id = "agents-capstone-project"
 
 
-Replace the value with your actual Project ID, e.g.:
+* Replace the value with your actual Project ID, e.g.:
 
 project_id = "my-project-123456"
 
 
-This must match the project created in Step 1.
+* This must match the project created in Step 1.
 
 B. t_retrieval_rag_tool.py
 
-Vertex AI is initialized here:
+*Vertex AI is initialized here:
 
 vertexai.init(project=ProjectConfig.project_id, location="us-east1")
 client = genai.Client(vertexai=True, project=ProjectConfig.project_id, location="us")
 
 ##### Important Notes:
 
-The project ID must come from ProjectConfig.
-The region must be a region supported by Vertex AI and Vertex RAG.
-You may update the region depending on your location or your organization’s requirements:
+* The project ID must come from ProjectConfig.
+* The region must be a region supported by Vertex AI and Vertex RAG.
+* You may update the region depending on your location or your organization’s requirements:
 
 vertexai.init(project=ProjectConfig.project_id, location="YOUR_REGION")
 
